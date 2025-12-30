@@ -25,8 +25,6 @@ venv/
 # macOS
 .DS_Store
 
-# Outputs
-outputs/
 
 
 # Jupyter
