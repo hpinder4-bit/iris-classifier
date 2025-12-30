@@ -28,3 +28,6 @@ venv/
 # Outputs
 outputs/
 
+
+# Jupyter
+.ipynb_checkpoints/
