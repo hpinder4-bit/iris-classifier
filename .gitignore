@@ -31,3 +31,6 @@ outputs/
 
 # Jupyter
 .ipynb_checkpoints/
+
+# Local Anaconda folders
+anaconda_projects/
