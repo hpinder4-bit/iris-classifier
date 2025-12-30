@@ -15,29 +15,33 @@ def main() -> None:
     parser.add_argument("--random-state", type=int, default=42)
     args = parser.parse_args()
 
+    # Project paths
     project_root = Path(__file__).resolve().parents[1]
     outputs_dir = project_root / "outputs"
     outputs_dir.mkdir(exist_ok=True)
 
-    # Load Iris data
+    # Load data
     iris = load_iris()
     X, y = iris.data, iris.target
 
-    # Train/test split
+    # Split
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=args.test_size, random_state=args.random_state, stratify=y
+        X, y,
+        test_size=args.test_size,
+        random_state=args.random_state,
+        stratify=y
     )
 
-    # Train Decision Tree
+    # Train model
     model = DecisionTreeClassifier(random_state=args.random_state)
     model.fit(X_train, y_train)
 
     # Evaluate
     y_pred = model.predict(X_test)
-    acc = accuracy_score(y_test, y_pred)
-    print(f"Accuracy: {acc:.4f}")
+    accuracy = accuracy_score(y_test, y_pred)
+    print(f"Accuracy: {accuracy:.4f}")
 
-    # Confusion matrix -> save figure
+    # Save confusion matrix
     cm = confusion_matrix(y_test, y_pred)
     disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=iris.target_names)
     disp.plot()
@@ -47,8 +51,8 @@ def main() -> None:
     plt.close()
     print(f"Saved confusion matrix to: {cm_path}")
 
-    # Save model
-    model_path = outputs_dir / "model.joblib"
+    # Save trained model (THIS IS WHAT WAS MISSING)
+    model_path = outputs_dir / "decision_tree_model.joblib"
     joblib.dump(model, model_path)
     print(f"Saved model to: {model_path}")
 
